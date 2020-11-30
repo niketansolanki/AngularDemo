@@ -115,7 +115,7 @@
         </thead>
 
         <tbody>
-            <tr ng-hide="(studentList | filter:searchText | dateRange : from : to).length > 0"><td colspan="16" class="text-center">No data available</td></tr>
+            <tr ng-hide="(studentList | filter:searchText | dateRange : from : to).length > 0"><td colspan="17" class="text-center">No data available</td></tr>
             <tr ng-repeat="student in studentList | orderBy: myOrderBy | filter:searchText | dateRange : from : to ">
                 <td colspan="2">{{student.firstname}}</td>
                 <td>{{student.lastname}}</td>
