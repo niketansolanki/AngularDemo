@@ -1,0 +1,194 @@
+
+<h3>View List</h3>
+<div style="float:left;padding: 10px;">
+    <!--<form method="get">
+        <input type="text" placeholder="serchBy Name" name="searchname" id="searchname" ng-model="searchQuery" ng-change="fetchData(searchQuery)" class="form-control autocomplete" />
+        <div ng-show="user.length > 0">
+            <table class='auto-complete'>
+                <tbody>
+                    <tr ng-repeat="item in user">
+                        <td style='width: 90%' >
+                            {{item.firstname}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </form>-->
+    <form>
+        <div class="tooltip1">
+            <input type="text" placeholder="serchBy Name" name="searchname" id="searchname" ng-model="searchQuery" ng-change="fetchData(searchQuery)" class="form-control" ng-focus="tooltiptext1 = true" />
+            <div ng-class="{'tooltiptext1':tooltiptext1==true}" ng-show="user.length > 0">
+                <p ng-repeat="item in user" ng-click="edit(item.id)">
+                    {{item.firstname}}
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div style="float:right;padding: 10px;">
+    <button class="btn btn-primary" ng-click="add()">Add</button>
+</div>
+<div class="table-responsive">
+    <table class="table  table-bordered">
+        <thead>
+            <tr>
+                
+                <td scope="col">
+                     <button class="btn btn-info" ng-click="resetFilter()" style="padding: 5px 15px;">
+                     <i  class="fa fa-refresh" style="font-size:24px"></i></button>
+                </td>  
+                <th scope="col">
+                    <input type="text" placeholder="searchBy firstname" ng-show="studentList.length > 0" ng-model="searchText.firstname" class="form-control" style="width:150px" />
+                    <a ng-click="OrderByGrid('firstname')">FistName</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy lastname" ng-show="studentList.length  > 0" ng-model="searchText.lastname" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('lastname')">LastName</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy mobilenumber" ng-show="studentList.length  > 0" ng-model="searchText.mobilenumber" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('mobilenumber')">Mobile Number</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy altmobilenumber" ng-show="studentList.length > 0" ng-model="searchText.altmobilenumber" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('altmobilenumber')">Alternate Number</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy email" ng-show="studentList.length > 0" ng-model="searchText.email" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('email')">Email</a>
+                </th>
+                <th scope="col">
+                    <div>
+                        <select ng-show="studentList.length > 0" ng-model="searchText.gender" class="form-control" style="width:175px">
+                            <option value="">----SELECT ALL----</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <a ng-click="OrderByGrid('gender')">Gender</a>
+                </th>
+                <th scope="col">
+                    <!---->
+                    <div>
+                        <select ng-show="studentList.length > 0" id="searchHobbies" ng-model="searchText.hobbies" ng-change="changeHobbies(searchText.hobbies)" class="form-control" style="width:175px">
+                            <option value="">----SELECT ALL----</option>
+                            <option value="reading">reading</option>
+                            <option value="playing_games">playing games</option>
+                            <option value="travelling">travelling</option>
+                        </select>
+                    </div>
+                    <a ng-click="OrderByGrid('hobbies')">Hobbies</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy street1" ng-show="studentList.length > 0" ng-model="searchText.street1" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('street1')">Street1</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy street2" ng-show="studentList.length > 0" ng-model="searchText.street2" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('street2')">street2</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy country" ng-show="studentList.length > 0" ng-model="searchText.country" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('country')">Country</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy state" ng-show="studentList.length > 0" ng-model="searchText.state" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('state')">State</a>
+                </th>
+                <th scope="col">
+                    <input type="text" placeholder="searchBy zip" ng-show="studentList.length > 0" ng-model="searchText.zip" class="form-control" style="width:175px" />
+                    <a ng-click="OrderByGrid('zip')">Zip</a>
+                </th>
+                <th scope="col">
+                    <button ng-show="studentList.length > 0 " data-toggle="modal" data-target="#dateModal" class="form-control" style="width:225px">
+                        <label ng-show="from == 0 && to == 0 || from == undefined && to == undefined"> Search By Date</label>
+                        <label ng-show="(from != 0 || to != 0) && (from != undefined || to != undefined)">{{setDate(from)}} - {{setDate(to)}}</label>
+                    </button>
+                    <a ng-click="OrderByGrid('createdat')">Created At</a>
+                </th>
+                <th scope="col"><a ng-click="OrderByGrid('modifiedat')">Modified At</a></th>
+                <th scope="col">Edit / Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-hide="(studentList | filter:searchText | dateRange : from : to).length > 0"><td colspan="15" class="text-center">No data available</td></tr>
+            <tr ng-repeat="student in studentList | orderBy: myOrderBy | filter:searchText | dateRange : from : to ">
+                <td colspan="2">{{student.firstname}}</td>
+                <td>{{student.lastname}}</td>
+                <td>{{student.mobilenumber}}</td>
+                <td>{{student.altmobilenumber}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.gender}}</td>
+                <td>
+                    <p ng-show="student.hobbies.reading == true">reading</p>
+                    <p ng-show="student.hobbies.playing_games == true">playing games</p>
+                    <p ng-show="student.hobbies.travelling == true">travelling</p>
+                </td>
+                <td>{{student.street1}}</td>
+                <td>{{student.street2}}</td>
+                <td>{{student.country}}</td>
+                <td>{{student.state}}</td>
+                <td>{{student.zip}}</td>
+                <td>{{getDate(student.createdat)}}</td>
+                <td>{{getDate(student.modifiedat)}}</td>
+                <td>
+                    <button ng-click="edit(student.id)" class="btn btn-success m-1" ng-Model="add">Edit</button>
+                    <button ng-click="delete(student.id)" class="btn btn-danger m-1" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are You Sure You want to Delete ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="#/"><button type="button" ng-click="confirmDelete()" class="btn btn-danger" data-dismiss="modal">Confirm</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="dateModal" tabindex="-1" role="dialog" aria-labelledby="dateModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dateModalLabel">Search By Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="datefiltercancel()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Start Date
+                <input type="date" class="form-control" name="from" ng-model="from2">
+                End Date
+                <input type="date" class="form-control" name="to" ng-model="to2">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="dateFilter()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

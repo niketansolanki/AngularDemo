@@ -1,0 +1,177 @@
+
+<h3>Student Form</h3>
+
+<form name="studentForm">
+    <div class="col-md-8" style="border: 1px solid lightgray;">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>First Name </label>
+                <input name="firstname" type="text" ng-model="newstudent.firstname" class="form-control" required>
+                <span style="color:red" ng-show="studentForm.firstname.$dirty && studentForm.firstname.$invalid">
+                    <span ng-show="studentForm.firstname.$error.required">First Name is required.</span>
+                </span>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Last Name</label>
+                <input name="lastname" type="text" ng-model="newstudent.lastname" class="form-control" required>
+                <span style="color:red" ng-show="studentForm.lastname.$dirty && studentForm.lastname.$invalid">
+                    <span ng-show="studentForm.lastname.$error.required">Last Name is required.</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>MobileNumber </label>
+                <input name="mobilenumber" type="number" ng-model="newstudent.mobilenumber" class="form-control" ng-minlength="10" ng-maxlength="10"
+                       required>
+                <span style="color:red" ng-show="studentForm.mobilenumber.$dirty && studentForm.mobilenumber.$invalid">
+                    <span ng-show="studentForm.mobilenumber.$error.required">MobileNumber is required.</span>
+                    <span ng-show="studentForm.mobilenumber.$error.number">Please Enter Number only.</span>
+                    <span ng-show="studentForm.mobilenumber.$error.minlength || studentForm.mobilenumber.$error.maxlength">
+                        Mobile Number
+                        Should be 10 degits.
+                    </span>
+                </span>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Alternate MobileNumber </label>
+                <input name="altmobilenumber" type="number" ng-model="newstudent.altmobilenumber" class="form-control" ng-minlength="10"
+                       ng-maxlength="10">
+                <span style="color:red" ng-show="studentForm.altmobilenumber.$dirty && studentForm.altmobilenumber.$invalid">
+                    <span ng-show="studentForm.altmobilenumber.$error.number">Please Enter Number only.</span>
+                    <span ng-show="studentForm.altmobilenumber.$error.minlength || studentForm.altmobilenumber.$error.maxlength">
+                        Mobile
+                        Number
+                        Should be 10 degits.
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Email</label>
+                <input name="email" type="email" ng-model="newstudent.email" class="form-control" required>
+                <span style="color:red" ng-show="studentForm.email.$dirty && studentForm.email.$invalid">
+                    <span ng-show="studentForm.email.$error.required">Email is required.</span>
+                    <span ng-show="studentForm.email.$error.email">Invalid email address.</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-row">
+            <fieldset class="form-group col-md-6">
+                <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0">Gender: </legend>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            <input type="radio" ng-model="newstudent.gender" value="Male" class="form-check-input"
+                                   required>
+                            <label class="form-check-label">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" ng-model="newstudent.gender" value="Female" class="form-check-input"
+                                   required>
+                            <label class="form-check-label">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                    <span style="color:red" ng-show="studentForm.gender.$dirty && studentForm.gender.$invalid">
+                        <span ng-show="studentForm.gender.$error.required">Gender is required.</span>
+                    </span>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group col-md-6">
+                <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0">Hobbies: </legend>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            <input type="checkbox" ng-Model="newstudent.hobbies.reading" class="form-check-input"
+                                   ng-click="toggleSelection(newstudent.hobbies.reading)" />
+                            <label class="form-check-label">Reading </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" ng-Model="newstudent.hobbies.playing_games" class="form-check-input"
+                                   ng-click="toggleSelection(newstudent.hobbies.playing_games)" />
+                            <label class="form-check-label">playng games </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" ng-Model="newstudent.hobbies.travelling" class="form-check-input"
+                                   ng-click="toggleSelection(newstudent.hobbies.travelling)" />
+                            <label class="form-check-label">travelling </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Street1</label>
+                <input type="textarea" name="street1" ng-model="newstudent.street1" class="form-control" required>
+                <span style="color:red" ng-show="studentForm.street1.$dirty && studentForm.street1.$invalid">
+                    <span ng-show="studentForm.street1.$error.required">Address is required.</span>
+                </span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Street2</label>
+                <input type="textarea" ng-model="newstudent.street2" class="form-control">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Country </label>
+                <select ng-model="newstudent.country" name="country" class="form-control" required>
+                    <option value="">-----SELECT-----</option>
+                    <option value="India">India</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Rasia">Rasia</option>
+                    <option value="Canada">Canada</option>
+                    <option value="USA">USA</option>
+                    <option value="England">England</option>
+                    <option value="China">China</option>
+                </select>
+                <span style="color:red" ng-show="studentForm.country.$dirty && studentForm.country.$invalid">
+                    <span ng-show="studentForm.country.$error.required">country is required.</span>
+                </span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>State</label>
+                <select ng-model="newstudent.state" name="state" class="form-control" required>
+                    <option value="">-----SELECT-----</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Maharashta">Maharashta</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Rajshthan">Rajshthan</option>
+                    <option value="UttarPradesh">UttarPradesh</option>
+                    <option value="Haiyana">Haiyana</option>
+                </select>
+                <span style="color:red" ng-show="studentForm.state.$dirty && studentForm.state.$invalid">
+                    <span ng-show="studentForm.state.$error.required">State is required.</span>
+                </span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Zip</label>
+                <input type="number" name="zip" ng-model="newstudent.zip" class="form-control" required>
+                <span style="color:red" ng-show="studentForm.zip.$dirty && studentForm.zip.$invalid">
+                    <span ng-show="studentForm.zip.$error.required">Zip is required.</span>
+                    <span ng-show="studentForm.zip.$error.number">Please Enter Number only.</span>
+                </span>
+            </div>
+        </div>
+
+        <div style="padding: 10px 0;">
+            <a href="#/" class="btn btn-primary"> Back To List</a>
+            
+                <button class="btn btn-success" ng-show="id == null" ng-click="saveList()" ng-disabled="studentForm.$invalid">Save</button>
+                <button class="btn btn-success" ng-show="id != null" ng-click="saveList()" ng-disabled="studentForm.$invalid">Update</button>
+            
+        </div>
+    </div>
+</form>
+
+
